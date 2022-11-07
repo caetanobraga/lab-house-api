@@ -39,15 +39,14 @@ export class DriverController {
       .build();
   }
 
-  @Delete(':driverName')
+  @Delete(':driverCPF')
   @HttpCode(204)
-  public async deleteDriver(@Param('driverName') nome: string) {
-    await this.service.deleteDriver(nome);
+  public async deleteDriver(@Param('driverCPF') CPF: string) {
+    await this.service.deleteDriver(CPF);
   }
 
   @Get(':driverCPF')
   public async searchDriversPorCPF(@Param('driverCPF') CPF: string) {
-    console.log('teste');
     return await this.service.getDriverPorCPF(CPF);
   }
 
