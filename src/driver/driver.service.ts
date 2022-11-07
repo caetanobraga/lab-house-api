@@ -62,12 +62,11 @@ export class DriverService {
     }
   }
 
-  public async deleteDriver(nome: string) {
+  public async deleteDriver(CPF: string) {
     const drivers = await this.db.getDrivers();
-    const novaLista = drivers.filter(
-      (driver) => driver.nome.toLowerCase() != nome.toLowerCase(),
-    );
+    const novaLista = drivers.filter((driver) => driver.CPF != CPF);
     await this.db.setDrivers(novaLista);
+    return 'Item deletado!';
   }
 
   public async updateDriver(driver: Driver, CPF: string) {
