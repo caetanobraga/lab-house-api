@@ -16,6 +16,7 @@ export class VerifyCPF implements ValidatorConstraintInterface {
     value: any,
     validationArguments?: ValidationArguments,
   ): boolean | Promise<boolean> {
+    if (!value) return false;
     let soma: number;
     let resto: number;
     soma = 0;

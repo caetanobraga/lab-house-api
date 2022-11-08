@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -65,6 +66,17 @@ export class DriverService {
   public async deleteDriver(CPF: string) {
     const drivers = await this.db.getDrivers();
     const novaLista = drivers.filter((driver) => driver.CPF != CPF);
+    const travels = await this.db.getTravels();
+
+    const driverJaFezViagens = travels.find((travel) => travel.CPF === CPF);
+
+    if (driverJaFezViagens) {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'Driver já fez viagem, não pode ser deletado',
+      });
+    }
+
     await this.db.setDrivers(novaLista);
     return 'Item deletado!';
   }
