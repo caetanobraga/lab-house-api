@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   NotFoundException,
@@ -64,6 +65,17 @@ export class PassengerService {
 
   public async deletePassenger(CPF: string) {
     const passengers = await this.db.getPassengers();
+    const travels = await this.db.getTravels();
+
+    const passangerJaFezViagens = travels.find((travel) => travel.CPF === CPF);
+
+    if (passangerJaFezViagens) {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'Passageiro já fez viagem, não pode ser deletado',
+      });
+    }
+
     const novaLista = passengers.filter((passenger) => passenger.CPF != CPF);
     await this.db.setPassengers(novaLista);
   }

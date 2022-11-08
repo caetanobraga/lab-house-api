@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { writeFile, readFile } from 'fs/promises';
 import { Driver } from 'src/driver/driver.entity';
 import { Passenger } from 'src/passenger/passenger.entity';
+import { Travel } from 'src/travels/travel.entity';
 
 @Injectable()
 export class Db {
@@ -45,5 +46,22 @@ export class Db {
 
   public async setPassengers(passengers: Passenger[]) {
     await writeFile('passengers.json', JSON.stringify(passengers));
+  }
+
+  public async setTravel(travel: Travel) {
+    await writeFile(
+      'travels.json',
+      JSON.stringify([...(await this.getTravels()), travel]),
+    );
+  }
+
+  public async setTravels(travels: Travel[]) {
+    await writeFile('travels.json', JSON.stringify(travels));
+  }
+
+  public async getTravels(): Promise<Travel[]> {
+    const travelsInFile = await readFile('travels.json', 'utf-8');
+    const travels = JSON.parse(travelsInFile);
+    return travels;
   }
 }

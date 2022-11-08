@@ -4,9 +4,10 @@ import { TransformResponseInterceptor } from './core/http/transform-response-int
 import { Db } from './db/db';
 import { DriverModule } from './driver/driver.module';
 import { PassengerModule } from './passenger/passenger.module';
+import { TravelModule } from './travels/travel.module';
 
 @Module({
-  imports: [DriverModule, PassengerModule],
+  imports: [DriverModule, PassengerModule, TravelModule],
   controllers: [],
   providers: [
     Db,
