@@ -1,10 +1,11 @@
-import { IsNotEmpty, IsString, MaxLength, IsISO8601 } from 'class-validator';
+import { IsNotEmpty, IsString, IsEnum } from 'class-validator';
 import { IsValidCPF } from 'src/utils/cpf.validator';
+import { TipoStatus } from './tipo-status.enum';
 
 export class Travel {
   id: string;
 
-  status: string;
+  status: TipoStatus;
 
   driver: string;
 

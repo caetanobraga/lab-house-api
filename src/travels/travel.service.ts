@@ -1,8 +1,9 @@
-import { ConsoleLogger, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { Db } from 'src/db/db';
 import { Travel } from './travel.entity';
 import { v4 as uuidv4 } from 'uuid';
+import { TipoStatus } from './tipo-status.enum';
 
 @Injectable()
 export class TravelService {
@@ -15,7 +16,7 @@ export class TravelService {
     );
     if (passengerExists) {
       travel.id = uuidv4();
-      travel.status = 'CREATED';
+      travel.status = TipoStatus.CREATED;
       travel.driver = null;
       await this.db.setTravel(travel);
       return travel;
@@ -31,7 +32,9 @@ export class TravelService {
     const drivers = await this.db.getDrivers();
     const travels = await this.db.getTravels();
     const driverExists = drivers.find((driver) => driver.CPF === CPF);
-    const travelPending = travels.find((travel) => travel.status === 'CREATED');
+    const travelPending = travels.find(
+      (travel) => travel.status === TipoStatus.CREATED,
+    );
 
     if (!driverExists) {
       throw new NotFoundException({
@@ -49,7 +52,7 @@ export class TravelService {
 
     const travelAccepted = {
       ...travelPending,
-      status: 'ACCEPTED',
+      status: TipoStatus.ACCEPTED,
       driver: driverExists.CPF,
     };
 
