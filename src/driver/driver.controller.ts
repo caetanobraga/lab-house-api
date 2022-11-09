@@ -11,11 +11,13 @@ import {
   Patch,
   Query,
 } from '@nestjs/common';
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { NestResponse } from 'src/core/http/nest-response';
 import { NestResponseBuilder } from 'src/core/http/nest-response-builder';
 import { Driver } from './driver.entity';
 import { DriverService } from './driver.service';
 
+@ApiTags('drivers')
 @Controller('drivers')
 export class DriverController {
   constructor(private service: DriverService) {}

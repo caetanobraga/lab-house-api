@@ -9,9 +9,11 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Lab Car')
-    .setDescription('The cats API description')
+    .setDescription('labCAR api')
     .setVersion('1.0')
     .addTag('drivers')
+    .addTag('passengers')
+    .addTag('travels')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

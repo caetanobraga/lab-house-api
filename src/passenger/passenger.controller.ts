@@ -10,11 +10,13 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { NestResponse } from 'src/core/http/nest-response';
 import { NestResponseBuilder } from 'src/core/http/nest-response-builder';
 import { Passenger } from './passenger.entity';
 import { PassengerService } from './passenger.service';
 
+@ApiTags('passengers')
 @Controller('passenger')
 export class PassengerController {
   constructor(private service: PassengerService) {}

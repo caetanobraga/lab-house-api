@@ -14,8 +14,9 @@ import { NestResponse } from 'src/core/http/nest-response';
 import { NestResponseBuilder } from 'src/core/http/nest-response-builder';
 import { Travel } from './travel.entity';
 import { TravelService } from './travel.service';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('travels')
 @Controller('travel')
 export class TravelController {
   constructor(private service: TravelService) {}
